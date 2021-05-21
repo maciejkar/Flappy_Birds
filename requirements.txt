@@ -1,0 +1,2 @@
+#W tym pliku powinny się znaleźć potrzebne biblioteki orz określone ich wersje np.:
+arcade==2.5.6
