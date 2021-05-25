@@ -22,13 +22,14 @@ class Game(arcade.Window):
         self.bird_list = None
 
         self.flapped = False
+        self.score = 0
         self.dx = 0 # how many pixels pipes move
 
     def setup(self):
         self.background = arcade.load_texture(BACKGROUNDS[0])
         self.bird_list = arcade.SpriteList()
         self.pipe_sprites = arcade.SpriteList()
-        self.bird =Bird(self.width // 5, self.height // 2, self.height, BIRDS[0]) 
+        self.bird =Bird(self.width // 5, self.height // 2, BIRDS[0]) 
         self.bird_list.append(self.bird)
         self.sprites = dict()
         self.sprites['background'] = self.background
@@ -81,6 +82,10 @@ class Game(arcade.Window):
 
         self.pipe_sprites.update()
         self.bird.update()
+
+        hit = arcade.check_for_collision_with_list(self.bird, self.pipe_sprites)
+        if any(hit):
+            self.bird.die()
 
 
 def run_game():
