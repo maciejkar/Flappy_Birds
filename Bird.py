@@ -5,7 +5,7 @@ from game_variables import *
 class Bird(arcade.Sprite):
 
     def __init__(self, center_x, center_y, max_heigt, filename):
-        super().__init__(filename=filename,center_x=center_x, center_y=center_y,scale=0.2)
+        super().__init__(filename=filename,center_x=center_x, center_y=center_y,scale=0.3)
 
         self.textures = []
         # self.textures.append(arcade.load_texture(BIRDS[0]))
