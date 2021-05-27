@@ -5,6 +5,7 @@ GAME_HEIGHT = 322 * 2
 BACKGROUNDS = ["asserts" + sep + "Images" + sep + "background1.png"]
 BIRDS = ["asserts" + sep + "Images" + sep + "bird1.png"]
 PIPES = ["asserts" + sep + "Images" + sep + "green_pipe.png"]
+BUTTONS = {"play_again": "asserts" + sep + "Images" + sep + "play_again.png" }
 
 JUMP_DY = 60 # how many pixels bird per flap
 DY = 2.4 # how many pixels bird per frame
