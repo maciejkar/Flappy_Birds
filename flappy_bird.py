@@ -2,19 +2,19 @@
 from pipe import Pipe
 from Bird import Bird
 from pipe import Pipe
-from game_state import State
+import differents_views
 import random
 import arcade
 import os
 from game_variables import *
-# from buttons import *
 
-class Game(arcade.Window):
+class GameView(arcade.View):
 
-    def __init__(self, width, height):
+    def __init__(self):
         """ Inite game window"""
-        super().__init__(width, height, title="Flappy Birds")
-
+        super().__init__()
+        self.width = GAME_WIDTH
+        self.height = GAME_HEIGHT
         self.sprites = None
         self.pipe_sprites = None
         self.bird = None
@@ -22,9 +22,6 @@ class Game(arcade.Window):
         self.background = None
         #List of birds
         self.bird_list = None
-        #Initial state of game
-        self.state = State.MAIN_MENU
-
         self.flapped = False
         self.score = 0
         self.dx = 0 # how many pixels pipes move
@@ -43,8 +40,6 @@ class Game(arcade.Window):
         start_pipes = Pipe.random_size_pipe(self.height,self.width)
         self.pipe_sprites.extend(start_pipes)
 
-        # #Create buttons
-        # self.play_again = PlayAgainButton(self.width // 2 , self.height //3)
         
     def draw(self):
         """Funcion draw background"""
@@ -52,7 +47,6 @@ class Game(arcade.Window):
 
     def on_draw(self):
         """ This is the method called when the drawing time comes."""
-        self.ui_manager = None
         #render all objects
         arcade.start_render()
 
@@ -62,53 +56,51 @@ class Game(arcade.Window):
 
     def on_key_release(self, symbol, modifiers):
         if symbol == arcade.key.SPACE:
-            if self.state == State.PLAYING:
-                self.flapped = True
-            elif self.state == State.MAIN_MENU:
-                self.state = State.PLAYING
+            self.flapped = True
+
 
     def update(self,dt):
-        if self.state == State.PLAYING:
-            if self.flapped:
-                self.bird.flap()
-                self.flapped = False
+        
+        if self.flapped:
+            self.bird.flap()
+            self.flapped = False
 
-            # Check if bird is too high
-            if self.bird.top > self.height:
-                self.bird.top = self.height
+        # Check if bird is too high
+        if self.bird.top > self.height:
+            self.bird.top = self.height
 
-            # Check if bird is too low
-            if self.bird.bottom <= 0:
-                self.bird.bottom = 0
-            
-            self.dx += PIPE_SPEED
-            if self.dx > random.randrange(MIN_DISTACE_OF_PIPES, MAX_DISTACE_OF_PIPES):
-                self.dx = 0
-                new_pipe = Pipe.random_size_pipe(self.height, self.width)
-                self.pipe_sprites.extend(new_pipe)
+        # Check if bird is too low
+        if self.bird.bottom <= 0:
+            self.bird.bottom = 0
+        
+        self.dx += PIPE_SPEED
+        if self.dx > random.randrange(MIN_DISTACE_OF_PIPES, MAX_DISTACE_OF_PIPES):
+            self.dx = 0
+            new_pipe = Pipe.random_size_pipe(self.height, self.width)
+            self.pipe_sprites.extend(new_pipe)
 
-            for pipe in self.pipe_sprites:
-                if pipe.right <= 0:
-                    pipe.kill()
+        for pipe in self.pipe_sprites:
+            if pipe.right <= 0:
+                pipe.kill()
 
-            self.pipe_sprites.update()
-            self.bird.update()
+        self.pipe_sprites.update()
+        self.bird.update()
 
-            hit = arcade.check_for_collision_with_list(self.bird, self.pipe_sprites)
-            if any(hit):
-                self.bird.die()
-                self.state = State.GAME_OVER
-        elif self.state == State.GAME_OVER:
-            # self.ui_manager = UIManager()
-            # self.ui_manager.add_ui_element(self.play_again)
-            # arcade.start_render()
-            pass
+        hit = arcade.check_for_collision_with_list(self.bird, self.pipe_sprites)
+        if any(hit):
+            self.bird.die()
+            view = differents_views.GameOverView()
+            self.window.show_view(view)
+        
+
 
 def run_game():
     os.chdir(os.path.split(os.path.realpath(__file__))[0])
-    game = Game(GAME_WIDTH, GAME_HEIGHT )
-    game.setup()
+    window = arcade.Window(GAME_WIDTH, GAME_HEIGHT, "Flappy Bird")
+    start_view = differents_views.StartView()
+    window.show_view(start_view)
     arcade.run()
+
 
 if __name__ == "__main__":
     run_game()
