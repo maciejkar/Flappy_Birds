@@ -1,6 +1,5 @@
 
-2. Dodać punktację za przeskoczenie
-3. Dodać twój wynik w game over
+
 4. Dodać przycisk w menu najlepsze wyniki
 5. Dodać życia
 6 Dodać w menu przycisk play

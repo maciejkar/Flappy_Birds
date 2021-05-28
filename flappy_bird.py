@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from arcade.key import N
 from pipe import Pipe
 from Bird import Bird
 from pipe import Pipe
@@ -25,9 +26,16 @@ class GameView(arcade.View):
         self.flapped = False
         self.score = 0
         self.dx = 0 # how many pixels pipes move
+        self.score = None
+        self.score_board = None
+        self.score_length = None
+        self.score_width = None
+        self.number_width = None
 
     def setup(self):
-        
+        self.score = 0
+        self.score_board = arcade.SpriteList()
+        self.number_width = arcade.load_texture(SCORE['1']).width 
         self.background = arcade.load_texture(BACKGROUNDS[0])
         self.bird_list = arcade.SpriteList()
         self.pipe_sprites = arcade.SpriteList()
@@ -53,6 +61,21 @@ class GameView(arcade.View):
         self.draw()
         self.pipe_sprites.draw()
         self.bird_list.draw()
+        self.score_board.draw()
+
+    def build_score_board(self):
+        """ Function build score board with images
+        1. Calculate how many digits have score
+        2. Calculate requierd space
+        3. Calculate posisions that evry digit is centered
+        4 Add digit image to score board """
+        self.score_length = len(str(self.score))
+        self.score_width = self.number_width * 1.2 * self.score_length
+        left = (self.width - self.score_width) // 2 
+        self.score_board = arcade.SpriteList() # reload sprite list
+        for digit in str(self.score):
+            self.score_board.append(arcade.Sprite(SCORE[digit + 'b'], scale=1, center_x=left + self.number_width* 1.2 //2 , center_y= self.height - 100))
+            left += self.number_width * 1.2
 
     def on_key_release(self, symbol, modifiers):
         if symbol == arcade.key.SPACE:
@@ -61,6 +84,7 @@ class GameView(arcade.View):
 
     def update(self,dt):
         
+        self.build_score_board()
         if self.flapped:
             self.bird.flap()
             self.flapped = False
@@ -89,8 +113,14 @@ class GameView(arcade.View):
         hit = arcade.check_for_collision_with_list(self.bird, self.pipe_sprites)
         if any(hit):
             self.bird.die()
-            view = differents_views.GameOverView()
+            view = differents_views.GameOverView(self.score,  self.score_width)
             self.window.show_view(view)
+        
+        #Couting points
+        if self.bird.center_x >= self.pipe_sprites[0].center_x and not self.pipe_sprites[0].scored:
+            self.score += 1
+            self.pipe_sprites[0].scored = True
+            self.pipe_sprites[1].scored = True
         
 
 

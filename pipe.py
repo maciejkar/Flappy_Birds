@@ -10,6 +10,7 @@ class Pipe(arcade.Sprite):
         super().__init__(image, scale)
 
         self.horizontal_speed = -PIPE_SPEED
+        self.scored = False # Boolen expresion if bird passed this pipe
 
     @classmethod
     def random_size_pipe(cls, height, width):
