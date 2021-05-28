@@ -1,0 +1,9 @@
+
+2. Dodać punktację za przeskoczenie
+3. Dodać twój wynik w game over
+4. Dodać przycisk w menu najlepsze wyniki
+5. Dodać życia
+6 Dodać w menu przycisk play
+7 Dodać w menu przycisk przekierujący do ekranu z zasadami tam przycisk exit i back
+8 Dodać przycisk do menu w game over (lewy dolny róg)
+9* Dodać poziomy trudności
