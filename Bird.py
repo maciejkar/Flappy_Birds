@@ -36,4 +36,5 @@ class Bird(arcade.Sprite):
         self.velocity = JUMP_DY
 
     def die(self):
+        arcade.play_sound(SOUNDS['die'], 0.4)
         self.dead = True

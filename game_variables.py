@@ -1,5 +1,7 @@
 from os import sep
 
+import arcade
+
 GAME_WIDTH = 480 * 2
 GAME_HEIGHT = 322 * 2
 BACKGROUNDS = ["asserts" + sep + "Images" + sep + "background1.png"]
@@ -9,6 +11,13 @@ GAME_OVER = ["asserts" + sep + "Images" + sep + "game_over.png"]
 BUTTONS = {
     "play_again": "asserts" + sep + "Images" + sep + "play_again.png",
     "exit": "asserts" + sep + "Images" + sep + "exit.png"}
+
+SOUNDS = {
+    'wing': arcade.load_sound('asserts' + sep + 'Sounds' + sep + 'wing.wav'),
+    'die': arcade.load_sound('asserts' + sep + 'Sounds' + sep + 'die.wav'),
+    'hit': arcade.load_sound('asserts' + sep + 'Sounds' + sep + 'hit.wav'),
+    'point': arcade.load_sound('asserts' + sep + 'Sounds' + sep + 'point.wav'),
+}
 
 JUMP_DY = 60 # how many pixels bird per flap
 DY = 2.4 # how many pixels bird per frame

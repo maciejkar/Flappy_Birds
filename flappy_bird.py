@@ -86,6 +86,7 @@ class GameView(arcade.View):
         
         self.build_score_board()
         if self.flapped:
+            arcade.play_sound(SOUNDS['wing'], 0.5)
             self.bird.flap()
             self.flapped = False
 
@@ -112,12 +113,14 @@ class GameView(arcade.View):
 
         hit = arcade.check_for_collision_with_list(self.bird, self.pipe_sprites)
         if any(hit):
+            arcade.play_sound(SOUNDS['hit'], 0.2)
             self.bird.die()
             view = differents_views.GameOverView(self.score,  self.score_width)
             self.window.show_view(view)
         
         #Couting points
         if self.bird.center_x >= self.pipe_sprites[0].center_x and not self.pipe_sprites[0].scored:
+            arcade.play_sound(SOUNDS['point'], 0.5)
             self.score += 1
             self.pipe_sprites[0].scored = True
             self.pipe_sprites[1].scored = True
