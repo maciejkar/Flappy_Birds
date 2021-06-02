@@ -19,28 +19,26 @@ class GameView(arcade.View):
         self.sprites = None
         self.pipe_sprites = None
         self.bird = None
-        # Background texture
-        self.background = None
-        #List of birds
-        self.bird_list = None
-        self.flapped = False
+        self.background = None # Background texture
+        self.flapped = False # bool variables true when brid start jumping
         self.score = 0
-        self.dx = 0 # how many pixels pipes move
+        self.dx = 0 # how many pixels pipes move from last adding pipe
         self.score = None
         self.score_board = None
         self.score_length = None
         self.score_width = None
         self.number_width = None
+        self.life = None
 
     def setup(self):
+        """Method set some variables"""
         self.score = 0
+        self.life = LIVES
         self.score_board = arcade.SpriteList()
         self.number_width = arcade.load_texture(SCORE['1']).width 
         self.background = arcade.load_texture(BACKGROUNDS[0])
-        self.bird_list = arcade.SpriteList()
         self.pipe_sprites = arcade.SpriteList()
         self.bird =Bird(self.width // 5, self.height // 2, BIRDS[0]) 
-        self.bird_list.append(self.bird)
         self.sprites = dict()
         self.sprites['background'] = self.background
 
@@ -50,21 +48,24 @@ class GameView(arcade.View):
 
         
     def draw(self):
-        """Funcion draw background"""
+        """Method draw background, pipes, score board, bird"""
         arcade.draw_texture_rectangle(self.width // 2, self.height // 2, self.width, self.height, self.background, alpha=200 )
+        self.pipe_sprites.draw()
+        self.score_board.draw()
+        self.bird.draw()
 
     def on_draw(self):
         """ This is the method called when the drawing time comes."""
-        #render all objects
+        # Render all objects
         arcade.start_render()
-
         self.draw()
-        self.pipe_sprites.draw()
-        self.bird_list.draw()
-        self.score_board.draw()
+        left = self.bird.width
+        for _ in range(self.life):
+            arcade.draw_scaled_texture_rectangle(left, self.height - self.bird.height, self.bird.texture)
+            left += self.bird.width
 
     def build_score_board(self):
-        """ Function build score board with images
+        """ Method build score board with images
         1. Calculate how many digits have score
         2. Calculate requierd space
         3. Calculate posisions that evry digit is centered
@@ -98,12 +99,13 @@ class GameView(arcade.View):
         if self.bird.bottom <= 0:
             self.bird.bottom = 0
         
-        self.dx += PIPE_SPEED
+        self.dx += PIPE_SPEED # how much pixels pipes move from last adding pipe 
         if self.dx > random.randrange(MIN_DISTACE_OF_PIPES, MAX_DISTACE_OF_PIPES):
             self.dx = 0
             new_pipe = Pipe.random_size_pipe(self.height, self.width)
             self.pipe_sprites.extend(new_pipe)
 
+        # Dalate pipes if they aren't on screen
         for pipe in self.pipe_sprites:
             if pipe.right <= 0:
                 pipe.kill()
@@ -114,11 +116,18 @@ class GameView(arcade.View):
         hit = arcade.check_for_collision_with_list(self.bird, self.pipe_sprites)
         if any(hit):
             arcade.play_sound(SOUNDS['hit'], 0.2)
-            self.bird.die()
-            view = differents_views.GameOverView(self.score,  self.score_width)
-            self.window.show_view(view)
+            # if you have another life you lose it and delate two pieps (4 single pipes)
+            if self.life >= 1:
+                self.life -= 1
+                for pipe in self.pipe_sprites[:4]:
+                    pipe.kill()
+            else:
+                # if you don't have any life you lost
+                self.bird.die()
+                view = differents_views.GameOverView(self.score,  self.score_width, self.pipe_sprites, self.bird)
+                self.window.show_view(view)
         
-        #Couting points
+        # Couting points
         if self.bird.center_x >= self.pipe_sprites[0].center_x and not self.pipe_sprites[0].scored:
             arcade.play_sound(SOUNDS['point'], 0.5)
             self.score += 1

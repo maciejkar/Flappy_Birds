@@ -41,7 +41,7 @@ class StartView(arcade.View):
 
 class GameOverView(arcade.View):
     """View with game over"""
-    def __init__(self, score, score_width):
+    def __init__(self, score, score_width, pipes, bird):
         super().__init__()
         self.background = arcade.load_texture(BACKGROUNDS[0])
         self.width = GAME_WIDTH
@@ -50,6 +50,8 @@ class GameOverView(arcade.View):
         self.score_x = None
         self.score_width = score_width
         self.score = score
+        self.piepes = pipes
+        self.bird = bird
         self.number_width = arcade.load_texture(SCORE['1b']).width
         self.game_over = arcade.load_texture(GAME_OVER[0])
         self.score_texture = arcade.load_texture(SCORE['textureb'])
@@ -73,6 +75,8 @@ class GameOverView(arcade.View):
         self.score_x = (self.width - self.score_width - self.score_texture.width // 10)  //2 
         arcade.start_render()
         arcade.draw_texture_rectangle(self.width //2 , self.height // 2, self.width, self.height, self.background)
+        self.piepes.draw()
+        self.bird.draw()
         arcade.draw_scaled_texture_rectangle(self.width // 2 ,self.game_over.height, self.game_over,)
         arcade.draw_scaled_texture_rectangle(self.score_x, self.score_y, self.score_texture)
         left = self.score_x + self.score_texture.width // 2  +  self.number_width

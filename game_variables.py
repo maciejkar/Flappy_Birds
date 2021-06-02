@@ -10,7 +10,9 @@ PIPES = ["asserts" + sep + "Images" + sep + "green_pipe.png"]
 GAME_OVER = ["asserts" + sep + "Images" + sep + "game_over.png"]
 BUTTONS = {
     "play_again": "asserts" + sep + "Images" + sep + "play_again.png",
-    "exit": "asserts" + sep + "Images" + sep + "exit.png"}
+    "exit": "asserts" + sep + "Images" + sep + "exit.png",
+    "play": "asserts" + sep + "Images" + sep + "play.png"}
+
 
 SOUNDS = {
     'wing': arcade.load_sound('asserts' + sep + 'Sounds' + sep + 'wing.wav'),
@@ -22,12 +24,13 @@ SOUNDS = {
 JUMP_DY = 60 # how many pixels bird per flap
 DY = 2.4 # how many pixels bird per frame
 GRAVITY = 2.45 #how many pixels gravity go down for frame
-PIPE_SPEED = 1.7 #how fast pipes move
+PIPE_SPEED = 10 #1.7 #how fast pipes move
 MIN_HEIGHT = 50 #minimum height od pipes
 GAP_SIZE = 150 #minimum height of gap between top and bottom pipe
 MIN_DISTACE_OF_PIPES = 320 # minimum distance between two pipes
 MAX_DISTACE_OF_PIPES = 360 # maximum distance between two pipes
 
+LIVES = 3
 SCORE = {
     '0': 'asserts' + sep + 'Images' + sep + '0.png',
     '1': 'asserts' + sep + 'Images' + sep + '1.png',
