@@ -28,13 +28,14 @@ class StartView(arcade.View):
         
     def setup(self):
         self.ui_menager.purge_ui_elements()
-        button_exit = buttons.ExiteButton(self.width - self.exit_texture.width //2  , self.exit_texture.height //2 , self.exit_texture)
+        button_exit = buttons.ExiteButton(self.width - self.exit_texture.width //2  , self.exit_texture.height * 0.65 , self.exit_texture)
         self.ui_menager.add_ui_element(button_exit)
+
     def on_draw(self):
         arcade.start_render()
         arcade.draw_texture_rectangle(self.width //2 , self.height // 2, self.width, self.height, self.background)
         arcade.draw_scaled_texture_rectangle(self.width // 2, self.height - self.name.height * 0.6, self.name)
-        arcade.draw_scaled_texture_rectangle(self.width // 2, self.play_label.height * 0.6 , self.play_label)
+        arcade.draw_scaled_texture_rectangle(self.width // 2, self.play_label.height * 0.65 , self.play_label)
     
     def on_key_release(self, symbol, modifiers):
         if symbol == arcade.key.SPACE:
@@ -60,6 +61,7 @@ class GameOverView(arcade.View):
         self.score_texture = arcade.load_texture(SCORE['textureb'])
         self.play_again_texture = arcade.load_texture(BUTTONS["play_again"])
         self.exit_texture = arcade.load_texture(BUTTONS["exit"])
+        self.menu_texture = arcade.load_texture(BUTTONS['menu'])
         self.ui_menager = UIManager()
 
     def on_hide_view(self):
@@ -71,9 +73,11 @@ class GameOverView(arcade.View):
     def setup(self):
         self.ui_menager.purge_ui_elements()
         button_play_again = buttons.PlayAgainButton(self.width //2 , self.height // 4, self.play_again_texture)
-        button_exit = buttons.ExiteButton(self.width - self.exit_texture.width //2  , self.exit_texture.height //2 , self.exit_texture)
+        button_exit = buttons.ExiteButton(self.width - self.exit_texture.width //2  , self.exit_texture.height * 0.6 , self.exit_texture)
+        button_menu = buttons.MenuButton(self.menu_texture.width // 2, self.menu_texture.height * 0.6)
         self.ui_menager.add_ui_element(button_play_again)
         self.ui_menager.add_ui_element(button_exit)
+        self.ui_menager.add_ui_element(button_menu)
         self.score_y = (self.height - self.game_over.height  - button_play_again.height // 2) // 2 + button_play_again.height // 2 + self.height // 4
         self.score_x = (self.width - self.score_width - self.score_texture.width // 10)  //2 
         arcade.start_render()

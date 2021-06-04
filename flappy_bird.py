@@ -56,7 +56,7 @@ class GameView(arcade.View):
         self.pipe_sprites.draw()
         self.score_board.draw()
         self.bird.draw()
-        arcade.draw_scaled_texture_rectangle(self.width // 2, self.instruction.height * 0.6, self.instruction)
+        arcade.draw_scaled_texture_rectangle(self.width // 2, self.instruction.height * 0.65, self.instruction)
         
 
     def on_draw(self):

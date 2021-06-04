@@ -6,9 +6,8 @@ class Pipe(arcade.Sprite):
 
     def __init__(self, image, scale = 0.6):
         """ Initial pipes"""
-
         super().__init__(image, scale)
-
+        self.alpha = 255
         self.horizontal_speed = -PIPE_SPEED
         self.scored = False # Boolen expresion if bird passed this pipe
 

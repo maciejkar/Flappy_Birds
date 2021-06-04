@@ -11,7 +11,8 @@ GAME_OVER = ["asserts" + sep + "Images" + sep + "game_over.png"]
 BUTTONS = {
     "play_again": "asserts" + sep + "Images" + sep + "play_again.png",
     "exit": "asserts" + sep + "Images" + sep + "exit.png",
-    "play": "asserts" + sep + "Images" + sep + "play.png"}
+    "play": "asserts" + sep + "Images" + sep + "play.png",
+    "menu": "asserts" + sep + "Images" + sep + "menu.png"}
 
 
 SOUNDS = {
