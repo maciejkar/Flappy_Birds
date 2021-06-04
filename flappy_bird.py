@@ -20,6 +20,7 @@ class GameView(arcade.View):
         self.pipe_sprites = None
         self.bird = None
         self.background = None # Background texture
+        self.instruction = None #texure with instruction
         self.flapped = False # bool variables true when brid start jumping
         self.score = 0
         self.dx = 0 # how many pixels pipes move from last adding pipe
@@ -30,6 +31,7 @@ class GameView(arcade.View):
         self.number_width = None
         self.life = None
 
+
     def setup(self):
         """Method set some variables"""
         self.score = 0
@@ -37,6 +39,7 @@ class GameView(arcade.View):
         self.score_board = arcade.SpriteList()
         self.number_width = arcade.load_texture(SCORE['1']).width 
         self.background = arcade.load_texture(BACKGROUNDS[0])
+        self.instruction = arcade.load_texture(LABELS['how_to_jump'])
         self.pipe_sprites = arcade.SpriteList()
         self.bird =Bird(self.width // 5, self.height // 2, BIRDS[0]) 
         self.sprites = dict()
@@ -53,15 +56,17 @@ class GameView(arcade.View):
         self.pipe_sprites.draw()
         self.score_board.draw()
         self.bird.draw()
+        arcade.draw_scaled_texture_rectangle(self.width // 2, self.instruction.height * 0.6, self.instruction)
+        
 
     def on_draw(self):
         """ This is the method called when the drawing time comes."""
         # Render all objects
         arcade.start_render()
         self.draw()
-        left = self.bird.width
+        left = self.bird.width // 2
         for _ in range(self.life):
-            arcade.draw_scaled_texture_rectangle(left, self.height - self.bird.height, self.bird.texture)
+            arcade.draw_scaled_texture_rectangle(left, self.height - self.bird.height//2, self.bird.texture)
             left += self.bird.width
 
     def build_score_board(self):

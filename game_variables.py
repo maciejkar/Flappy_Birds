@@ -55,3 +55,8 @@ SCORE = {
     '9b': 'asserts' + sep + 'Images' + sep + '9b.png',
     'textureb': 'asserts' + sep + 'Images' + sep + 'scoreb.png',
 }
+LABELS = {
+    'name': "asserts" + sep + "Images" + sep + "name.png",
+    'how_to_play': "asserts" + sep + "Images" + sep + "how_to_play.png",
+    'how_to_jump': "asserts" + sep + "Images" + sep + "how_to_jump.png",
+}

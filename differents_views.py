@@ -9,6 +9,8 @@ class StartView(arcade.View):
     def __init__(self):
         super().__init__()
         self.background = arcade.load_texture(BACKGROUNDS[0])
+        self.name = arcade.load_texture(LABELS['name'])
+        self.play_label = arcade.load_texture(LABELS['how_to_play'])
         self.width = GAME_WIDTH
         self.height = GAME_HEIGHT
         self.exit_texture = arcade.load_texture(BUTTONS["exit"])
@@ -31,7 +33,8 @@ class StartView(arcade.View):
     def on_draw(self):
         arcade.start_render()
         arcade.draw_texture_rectangle(self.width //2 , self.height // 2, self.width, self.height, self.background)
-
+        arcade.draw_scaled_texture_rectangle(self.width // 2, self.height - self.name.height * 0.6, self.name)
+        arcade.draw_scaled_texture_rectangle(self.width // 2, self.play_label.height * 0.6 , self.play_label)
     
     def on_key_release(self, symbol, modifiers):
         if symbol == arcade.key.SPACE:
