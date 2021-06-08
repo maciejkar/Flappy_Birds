@@ -12,7 +12,9 @@ BUTTONS = {
     "play_again": "asserts" + sep + "Images" + sep + "play_again.png",
     "exit": "asserts" + sep + "Images" + sep + "exit.png",
     "play": "asserts" + sep + "Images" + sep + "play.png",
-    "menu": "asserts" + sep + "Images" + sep + "menu.png"}
+    "menu": "asserts" + sep + "Images" + sep + "menu.png",
+    "easy": "asserts" + sep + "Images" + sep + "easy.png",
+    "hard": "asserts" + sep + "Images" + sep + "hard.png"}
 
 
 SOUNDS = {
@@ -57,7 +59,8 @@ SCORE = {
     'textureb': 'asserts' + sep + 'Images' + sep + 'scoreb.png',
 }
 LABELS = {
-    'name': "asserts" + sep + "Images" + sep + "name.png",
+    'name': "asserts" + sep + "Images" + sep + "name2.png",
     'how_to_play': "asserts" + sep + "Images" + sep + "how_to_play.png",
     'how_to_jump': "asserts" + sep + "Images" + sep + "how_to_jump.png",
+    'high_score': "asserts" + sep + "Images" + sep + "high_score.png"
 }

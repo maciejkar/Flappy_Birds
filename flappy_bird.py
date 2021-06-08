@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-from arcade.key import N
+import json
+from arcade.key import F, N
 from pipe import Pipe
 from Bird import Bird
 from pipe import Pipe
@@ -11,9 +12,11 @@ from game_variables import *
 
 class GameView(arcade.View):
 
-    def __init__(self):
+    def __init__(self, difficulty, high_scores):
         """ Inite game window"""
         super().__init__()
+        self.difficulty = difficulty
+        self.high_scores = high_scores
         self.width = GAME_WIDTH
         self.height = GAME_HEIGHT
         self.sprites = None
@@ -122,14 +125,19 @@ class GameView(arcade.View):
         if any(hit):
             arcade.play_sound(SOUNDS['hit'], 0.2)
             # if you have another life you lose it and delate two pieps (4 single pipes)
-            if self.life >= 1:
+            if self.life > 1:
                 self.life -= 1
                 for pipe in self.pipe_sprites[:4]:
                     pipe.kill()
             else:
                 # if you don't have any life you lost
+                if self.high_scores[self.difficulty] < self.score : # save new best score
+                    self.high_scores[self.difficulty] = self.score
+                    with open('high_score.json', 'w') as f:
+                        json.dump(self.high_scores, f)
+
                 self.bird.die()
-                view = differents_views.GameOverView(self.score,  self.score_width, self.pipe_sprites, self.bird)
+                view = differents_views.GameOverView(self.score,  self.score_width, self.pipe_sprites, self.bird, self.high_scores[self.difficulty])
                 self.window.show_view(view)
         
         # Couting points
