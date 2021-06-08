@@ -1,6 +1,5 @@
 import json
 import arcade
-from arcade import key
 from arcade.application import MOUSE_BUTTON_LEFT
 import flappy_bird
 import buttons
@@ -124,6 +123,7 @@ class GameOverView(arcade.View):
         self.setup()
 
     def setup(self):
+        # Adding buttons
         self.ui_menager.purge_ui_elements()
         button_play_again = buttons.PlayAgainButton(self.width //2 , self.height // 4, self.play_again_texture)
         button_exit = buttons.ExiteButton(self.width - self.exit_texture.width //2  , self.exit_texture.height * 0.6 , self.exit_texture)
@@ -131,16 +131,27 @@ class GameOverView(arcade.View):
         self.ui_menager.add_ui_element(button_play_again)
         self.ui_menager.add_ui_element(button_exit)
         self.ui_menager.add_ui_element(button_menu)
-        self.score_y = (self.height - self.game_over.height  - button_play_again.height // 2) // 2 + button_play_again.height // 2 + self.height // 4
-        self.score_x = (self.width - self.score_width - self.score_texture.width // 10)  //2 
+        # Start drawing
         arcade.start_render()
         arcade.draw_texture_rectangle(self.width //2 , self.height // 2, self.width, self.height, self.background)
         self.piepes.draw()
         self.bird.draw()
         arcade.draw_scaled_texture_rectangle(self.width // 2 ,self.game_over.height, self.game_over,)
+        # Setup score 
+        self.score_y = (self.height - self.game_over.height  - button_play_again.height // 2) // 2 + button_play_again.height // 2 + self.height // 4
+        self.score_x = (self.width - self.score_width - self.score_texture.width // 10)  //2 
         arcade.draw_scaled_texture_rectangle(self.score_x, self.score_y, self.score_texture)
         left = self.score_x + self.score_texture.width // 2  +  self.number_width
         for digit in str(self.score):
             arcade.draw_scaled_texture_rectangle(center_x=left + self.number_width *1.2 // 2, center_y=self.score_y, texture=arcade.load_texture(SCORE[digit + 'b']))
             left += self.number_width *1.2
-    
+        
+        # Setup high score 
+        arcade.draw_scaled_texture_rectangle(self.width // 2, button_play_again.top -   button_play_again.height, arcade.load_texture(LABELS['high_score'])   )
+        score_length = len(str(self.high_score))
+        score_width = self.number_width * 1.2 * score_length
+        left = (self.width - score_width) // 2 
+
+        for digit in str(self.high_score):
+            arcade.draw_scaled_texture_rectangle(center_x=left + self.number_width* 1.2 //2 , center_y= arcade.load_texture(SCORE['1b']).height * 0.6 , texture=arcade.load_texture(SCORE[digit + 'b']))
+            left += self.number_width * 1.2
