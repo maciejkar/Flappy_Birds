@@ -25,13 +25,14 @@ SOUNDS = {
 }
 
 JUMP_DY = 60 # how many pixels bird per flap
-DY = 2.4 # how many pixels bird per frame
+DY = 2.4 # how many pixels bird per frame goes down
 GRAVITY = 2.45 #how many pixels gravity go down for frame
-PIPE_SPEED = 1.7 #how fast pipes move
+PIPE_SPEED = 1.7 #how fast pipes move horizontally
+PIPE_UP = 1 #how fast pipes move vertically only on hard mode
 MIN_HEIGHT = 50 #minimum height od pipes
-GAP_SIZE = 150 #minimum height of gap between top and bottom pipe
-MIN_DISTACE_OF_PIPES = 320 # minimum distance between two pipes
-MAX_DISTACE_OF_PIPES = 360 # maximum distance between two pipes
+GAP_SIZE = 155 #minimum height of gap between top and bottom pipe
+MIN_DISTACE_OF_PIPES = 330 # minimum distance between two pipes
+MAX_DISTACE_OF_PIPES = 370 # maximum distance between two pipes
 
 LIVES = 3
 SCORE = {

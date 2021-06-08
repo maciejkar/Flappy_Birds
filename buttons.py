@@ -6,10 +6,12 @@ from game_variables import *
 import sys
 
 class PlayAgainButton(UIImageButton):
-    def __init__(self, center_x, center_y,normal_texture=arcade.load_texture(BUTTONS["play_again"]) ):
+    def __init__(self, center_x, center_y,normal_texture=arcade.load_texture(BUTTONS["play_again"]), difficulty='easy', high_scores=0):
+        self.difficulty = difficulty
+        self.high_scores = high_scores
         super().__init__(normal_texture,center_x=center_x, center_y=center_y,)
     def on_click(self):
-        view = flappy_bird.GameView()
+        view = flappy_bird.GameView(self.difficulty, self.high_scores)
         view.setup()
         view.window.show_view(view)
 class ExiteButton(UIImageButton):
@@ -29,7 +31,7 @@ class DifficultyButton(UIImageButton):
         self.difficulty = 'easy' 
         super().__init__(normal_texture,center_x=center_x, center_y=center_y,)
     def on_click(self):
-        
+
         if self.difficulty == 'easy':
             self.normal_texture = arcade.load_texture(BUTTONS["hard"])
             self.difficulty = 'hard'

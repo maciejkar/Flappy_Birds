@@ -96,7 +96,7 @@ class StartView(arcade.View):
 
 class GameOverView(arcade.View):
     """View with game over"""
-    def __init__(self, score, score_width, pipes, bird, high_score):
+    def __init__(self, score, score_width, pipes, bird, difficulty, high_scores):
         super().__init__()
         self.background = arcade.load_texture(BACKGROUNDS[0])
         self.width = GAME_WIDTH
@@ -107,7 +107,8 @@ class GameOverView(arcade.View):
         self.score = score
         self.piepes = pipes
         self.bird = bird
-        self.high_score = high_score
+        self.difficulty = difficulty
+        self.high_scores = high_scores
         self.number_width = arcade.load_texture(SCORE['1b']).width
         self.game_over = arcade.load_texture(GAME_OVER[0])
         self.score_texture = arcade.load_texture(SCORE['textureb'])
@@ -125,7 +126,7 @@ class GameOverView(arcade.View):
     def setup(self):
         # Adding buttons
         self.ui_menager.purge_ui_elements()
-        button_play_again = buttons.PlayAgainButton(self.width //2 , self.height // 4, self.play_again_texture)
+        button_play_again = buttons.PlayAgainButton(self.width //2 , self.height // 4, self.play_again_texture, self.difficulty, self.high_scores)
         button_exit = buttons.ExiteButton(self.width - self.exit_texture.width //2  , self.exit_texture.height * 0.6 , self.exit_texture)
         button_menu = buttons.MenuButton(self.menu_texture.width // 2, self.menu_texture.height * 0.6)
         self.ui_menager.add_ui_element(button_play_again)
@@ -148,10 +149,10 @@ class GameOverView(arcade.View):
         
         # Setup high score 
         arcade.draw_scaled_texture_rectangle(self.width // 2, button_play_again.top -   button_play_again.height, arcade.load_texture(LABELS['high_score'])   )
-        score_length = len(str(self.high_score))
+        score_length = len(str(self.high_scores[self.difficulty]))
         score_width = self.number_width * 1.2 * score_length
         left = (self.width - score_width) // 2 
 
-        for digit in str(self.high_score):
+        for digit in str(self.high_scores[self.difficulty]):
             arcade.draw_scaled_texture_rectangle(center_x=left + self.number_width* 1.2 //2 , center_y= arcade.load_texture(SCORE['1b']).height * 0.6 , texture=arcade.load_texture(SCORE[digit + 'b']))
             left += self.number_width * 1.2

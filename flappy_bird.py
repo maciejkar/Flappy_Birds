@@ -49,7 +49,7 @@ class GameView(arcade.View):
         self.sprites['background'] = self.background
 
         # Create starts pipes
-        start_pipes = Pipe.random_size_pipe(self.height,self.width)
+        start_pipes = Pipe.random_size_pipe(self.height, self.width, self.difficulty)
         self.pipe_sprites.extend(start_pipes)
 
         
@@ -110,7 +110,7 @@ class GameView(arcade.View):
         self.dx += PIPE_SPEED # how much pixels pipes move from last adding pipe 
         if self.dx > random.randrange(MIN_DISTACE_OF_PIPES, MAX_DISTACE_OF_PIPES):
             self.dx = 0
-            new_pipe = Pipe.random_size_pipe(self.height, self.width)
+            new_pipe = Pipe.random_size_pipe(self.height, self.width, self.difficulty)
             self.pipe_sprites.extend(new_pipe)
 
         # Dalate pipes if they aren't on screen
@@ -137,7 +137,7 @@ class GameView(arcade.View):
                         json.dump(self.high_scores, f)
 
                 self.bird.die()
-                view = differents_views.GameOverView(self.score,  self.score_width, self.pipe_sprites, self.bird, self.high_scores[self.difficulty])
+                view = differents_views.GameOverView(self.score,  self.score_width, self.pipe_sprites, self.bird, self.difficulty, self.high_scores)
                 self.window.show_view(view)
         
         # Couting points

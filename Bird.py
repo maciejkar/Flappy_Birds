@@ -19,12 +19,7 @@ class Bird(arcade.Sprite):
         self.velocity = velocity
 
     def update(self):
-        if self.dead:
-            self.angle = -90
-            if self.center_y > 0 + self.height //2:
-                self.center_y -= GRAVITY
-            return
-
+        
         if self.velocity > 0:
             self.center_y += DY
             self.velocity -= DY
