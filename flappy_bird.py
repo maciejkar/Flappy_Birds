@@ -141,7 +141,7 @@ class GameView(arcade.View):
                 self.window.show_view(view)
         
         # Couting points
-        if self.bird.center_x >= self.pipe_sprites[0].center_x and not self.pipe_sprites[0].scored:
+        if self.bird.left >= self.pipe_sprites[0].right and not self.pipe_sprites[0].scored:
             arcade.play_sound(SOUNDS['point'], 0.5)
             self.score += 1
             self.pipe_sprites[0].scored = True
