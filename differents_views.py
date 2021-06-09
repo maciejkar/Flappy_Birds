@@ -3,7 +3,7 @@ import os
 import arcade
 import flappy_bird
 import buttons
-from game_variables import *
+from game_variables import BACKGROUNDS, LABELS, GAME_WIDTH, GAME_HEIGHT, SCORE, BUTTONS, GAME_OVER
 from arcade.gui import UIManager
 from os import sep
 

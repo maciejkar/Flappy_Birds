@@ -1,6 +1,6 @@
 import random
 import arcade
-from game_variables import *
+from game_variables import PIPE_SPEED, PIPES, PIPE_UP, MIN_HEIGHT ,GAP_SIZE
 
 class Pipe(arcade.Sprite):
     """Class of pipes"""
@@ -24,7 +24,7 @@ class Pipe(arcade.Sprite):
         @pam height: height of screen
         @pam width: width of screen
         @pam difficulty : 'easy' or 'hard' level of difficulty"""
-        
+
         bottom_pipe = cls(PIPES[0], difficulty)
         bottom_pipe.top = random.randrange(0 + MIN_HEIGHT, height - GAP_SIZE - MIN_HEIGHT)
         bottom_pipe.left = width 

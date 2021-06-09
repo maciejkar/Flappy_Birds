@@ -1,5 +1,5 @@
 import arcade
-from game_variables import *
+from game_variables import GRAVITY, DY, JUMP_DY, SOUNDS
 
 
 class Bird(arcade.Sprite):

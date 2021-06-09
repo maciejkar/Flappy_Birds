@@ -2,7 +2,7 @@ import arcade
 import flappy_bird
 import differents_views
 from arcade.gui import  UIImageButton
-from game_variables import *
+from game_variables import BUTTONS
 import sys
 
 class PlayAgainButton(UIImageButton):
