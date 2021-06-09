@@ -11,6 +11,7 @@ import os
 from game_variables import *
 
 class GameView(arcade.View):
+    """Main view of game"""
 
     def __init__(self, difficulty, high_scores):
         """ Inite game window"""
@@ -98,6 +99,7 @@ class GameView(arcade.View):
 
 
     def update(self,dt):
+        """Function which is used evry frame"""
         
         self.build_score_board()
         if self.flapped:
@@ -139,7 +141,8 @@ class GameView(arcade.View):
                 # if you don't have any life you lost
                 if self.high_scores[self.difficulty] < self.score : # save new best score
                     self.high_scores[self.difficulty] = self.score
-                    with open('high_score.json', 'w') as f:
+                    
+                    with open('data' + os.sep + 'high_score.json', 'w') as f:
                         json.dump(self.high_scores, f)
 
                 self.bird.die()
@@ -156,6 +159,7 @@ class GameView(arcade.View):
 
 
 def run_game():
+    """Function which run game"""
     os.chdir(os.path.split(os.path.realpath(__file__))[0])
     window = arcade.Window(GAME_WIDTH, GAME_HEIGHT, "Flappy Bird")
     start_view = differents_views.StartView()

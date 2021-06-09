@@ -3,21 +3,21 @@ from game_variables import *
 
 
 class Bird(arcade.Sprite):
+    """Class of Bird"""
 
     def __init__(self, center_x, center_y, filename):
+        """Init Bird class
+        @pam center_x: x cord of center of Bird
+        @pam center_y: y cord of center of Bird
+        @pam filename: filename with Bird texture """
+
         super().__init__(filename=filename,center_x=center_x, center_y=center_y)
-
-        self.textures = []
-        # self.textures.append(arcade.load_texture(BIRDS[0]))
-
         self.cur_texture_index = 0
         self.velocity =  0
         self.dy = 0
         self.dead = False
 
-    def set_velocity(self, velocity):
-        self.velocity = velocity
-
+    
     def update(self):
         
         if self.velocity > 0:

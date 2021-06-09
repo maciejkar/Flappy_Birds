@@ -36,6 +36,7 @@ class StartView(arcade.View):
         self.setup()
     
     def load_highscore(self):
+        """Method load highscore from file"""
         
         try:
             with open('data' + sep + 'high_score.json','r') as f:
