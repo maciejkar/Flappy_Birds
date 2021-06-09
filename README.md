@@ -21,7 +21,7 @@ Clone of popular flappy bird game. Game have two levels of dificulty: easy, hard
 3. Run game
 `python flappy_bird.py`
 
-#Screenshots
+# Screenshots
 
 ![menu_easy](Screenshots/menu_easy.png)
 ![menu_hard](Screenshots/menu_hard.png)
