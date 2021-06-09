@@ -15,12 +15,16 @@ class PlayAgainButton(UIImageButton):
         view = flappy_bird.GameView(self.difficulty, self.high_scores)
         view.setup()
         view.window.show_view(view)
+
+
 class ExiteButton(UIImageButton):
     """When we click this button we exit game"""
     def __init__(self, center_x, center_y,normal_texture=arcade.load_texture(BUTTONS["exit"]) ):
         super().__init__(normal_texture,center_x=center_x, center_y=center_y,)
     def on_click(self):
         sys.exit()
+
+
 class MenuButton(UIImageButton):
     """This button change view to menu view """
     def __init__(self, center_x, center_y,normal_texture=arcade.load_texture(BUTTONS["menu"]) ):
@@ -28,6 +32,7 @@ class MenuButton(UIImageButton):
     def on_click(self):
         view = differents_views.StartView()
         view.window.show_view(view)
+        
 
 class DifficultyButton(UIImageButton):
     """This button changee difficulty level"""
