@@ -38,7 +38,12 @@ class GameView(arcade.View):
     def setup(self):
         """Method set some variables"""
         self.score = 0
-        self.life = LIVES
+        # Number of lives is connectet with dificulty level
+        if self.difficulty == "easy":
+            self.life = LIVES
+        elif self.difficulty == "hard":
+            self.life = 1
+
         self.score_board = arcade.SpriteList()
         self.number_width = arcade.load_texture(SCORE['1']).width 
         self.background = arcade.load_texture(BACKGROUNDS[0])
@@ -68,6 +73,7 @@ class GameView(arcade.View):
         arcade.start_render()
         self.draw()
         left = self.bird.width // 2
+
         for _ in range(self.life):
             arcade.draw_scaled_texture_rectangle(left, self.height - self.bird.height//2, self.bird.texture)
             left += self.bird.width
