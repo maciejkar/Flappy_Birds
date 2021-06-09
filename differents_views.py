@@ -1,10 +1,11 @@
 import json
+import os
 import arcade
-from arcade.application import MOUSE_BUTTON_LEFT
 import flappy_bird
 import buttons
 from game_variables import *
 from arcade.gui import UIManager
+from os import sep
 
 class StartView(arcade.View):
     """View with start"""
@@ -37,11 +38,12 @@ class StartView(arcade.View):
     def load_highscore(self):
         
         try:
-            with open('high_score.json','r') as f:
+            with open('data' + sep + 'high_score.json','r') as f:
                 self.high_scores = json.load(f)
 
         except:
-            with open('high_score.json','w') as f:
+            os.makedirs('data', exist_ok= True)
+            with open('data' + sep + 'high_score.json','w') as f:
                 self.high_scores = {'easy': 0, 'hard': 0}
                 json.dump(self.high_scores ,f)
                 
